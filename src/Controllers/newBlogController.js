@@ -93,6 +93,7 @@ const createBlog = async function (req, res) {
     });
   } catch (error) {
     res.status(500).send({ status: false, message: error.message });
+    console.log({message: error.message })
   }
 };
 
@@ -106,7 +107,7 @@ const getBlog = async function (req, res) {
     if (!validator.isValidString(authorId)) {
       return res
         .status(400)
-        .send({ status: false, message: "Author id is required" });
+        .send({ status: false, message: "Author id is required"  });
     }
     if (authorId) {
       if (!validator.isValidObjectId(authorId)) {
@@ -283,7 +284,7 @@ const updateDetails = async function (req, res) {
 //DELETE /blogs/:blogId - Mark is Deleted:true if the blogId exists and it is not deleted.
 const deleteBlogById = async function (req, res) {
   try {
-    let authorIdFromToken = req.authorId;
+    //let authorIdFromToken = req.authorId;
     let id = req.params.blogId;
 
     if (!validator.isValidObjectId(id)) {
@@ -298,13 +299,14 @@ const deleteBlogById = async function (req, res) {
       return res.status(400).send({ status: false, msg: "No such blog found" });
     }
 
+    /*
     if (Blog.authorId.toString() !== authorIdFromToken) {
       res.status(401).send({
         status: false,
         message: `Unauthorized access! Owner info doesn't match`,
       });
       return;
-    }
+    }*/
     
     let data = await blogModel.findOne({ _id: id });
     if (data.isDeleted == false) {

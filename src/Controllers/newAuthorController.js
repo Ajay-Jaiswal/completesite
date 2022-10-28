@@ -1,7 +1,7 @@
 const authorModel = require("../models/authorModel.js");
 const jwt = require("jsonwebtoken");
 const validator = require("../utils/validator");
-const secretKey = "Functionup-Uranium";
+const secretKey = "JayVision";
 
 //Creating Author documents by validating the details.
 const createAuthor = async function (req, res) {
@@ -140,16 +140,37 @@ const loginAuthor = async function (req, res) {
         });
     }
 
+
+
     //creating JWT
     let token = jwt.sign({ authorId: findAuthor._id }, secretKey);
     res.header("x-api-key", token);
+    res.cookie("x-api-key", token,{
+      expires : new Date(Date.now()+9000000),
+      httpOnly : true
+    });
+
+    let decoded = jwt.verify(token, secretKey)
+    console.log(decoded)
+
+    if (!decoded) {
+        return res.status(403).send({ status: false, message: `Invalid authentication token in request` })
+    }
+
+    authorId = decoded.authorId
+    let finddetail = await authorModel.findOne({_id : authorId})
     return res
       .status(201)
       .send({
         status: true,
-        message: `Author login successfully`,
+      message: `Author login successfully =  ${authorId}`,
+      authorId : authorId,
+      email : finddetail.email,
+      fname : finddetail.fname,
+      lname : finddetail.lname,
         data: { token },
       });
+      
   } catch (error) {
     res.status(500).send({ status: false, Error: error.message });
   }

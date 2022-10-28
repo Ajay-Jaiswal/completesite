@@ -1,15 +1,25 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const route = require('./Route/route');
-const { default: mongoose } = require('mongoose');
 const app = express();
+const route = require('./Route/route');
+const mongoose = require('mongoose');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+var cookieParser = require('cookie-parser')
+const cors = require("cors")
+const dotenv = require('dotenv')
+ dotenv.config()
+
+let MONGODB_URL = process.env.MONGODB_URL
+let port = process.env.PORT
+
+app.use(cors())
+app.use(cookieParser())
+
+app.use(express.json());
 
 
-mongoose.connect("mongodb+srv://Aditya1998:aadi1998@cluster0.zl7lv.mongodb.net/OurProject-1?retryWrites=true&w=majority", {
-    useNewUrlParser: true
+
+mongoose.connect(MONGODB_URL, {
+    useNewUrlParser : true
 })
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
@@ -17,6 +27,6 @@ mongoose.connect("mongodb+srv://Aditya1998:aadi1998@cluster0.zl7lv.mongodb.net/O
 app.use('/', route);
 
 
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Express app running on port ' + (process.env.PORT || 3000))
+app.listen(port, function () {
+    console.log('Express app running on port ' + (port))
 });
