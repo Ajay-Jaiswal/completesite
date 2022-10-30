@@ -49,14 +49,18 @@ import React,{useEffect, useState} from "react";
   
 
 
-  return (
-    
-    
-    <div>
-      
-      
-     <button className="button-33"><NavLink to="Cblog">Create blog</NavLink></button>
 
+    
+    
+    
+      
+      
+     
+      if(post){
+        return (
+          <div>
+
+          <button className="button-33"><NavLink to="Cblog">Create blog</NavLink></button>
       {
         post.map((data)=>{
             return(
@@ -76,9 +80,20 @@ import React,{useEffect, useState} from "react";
             )
         })
       }
+      </div>
+      )
+      }
+      else{
+        return (
+          <div>
+          <button className="button-33"><NavLink to="Cblog">Create blog</NavLink></button>
+          
+          <h1> no post</h1>
+          </div>
+        )
+      }
       
-    </div>
-  );
+    
 }
 
 export default Blog;

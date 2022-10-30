@@ -55,17 +55,8 @@ import pic from "./image/superman.gif"
         
       <form >
       <h1 style={{margin:"20px"}}>SignUp</h1>
-        <label>
-          Name :  
-           <input type="text"  value={fname} onChange={(e) => setFname(e.target.value) } name="fname"/>
-        </label><br></br>
 
-        <label>
-          Last Name :  
-           <input type="text" name="lname" value={lname} onChange={(e)=>{setLname(e.target.value)}}/>
-        </label><br></br>
-
-        <label> 
+      <label> 
           Title :  
            
           <select value={title} onChange={(e)=>{setTitle(e.target.value)}} >
@@ -76,8 +67,20 @@ import pic from "./image/superman.gif"
           </select>
 
         </label>
-
         <br></br>
+        <label>
+          Name :  
+           <input type="text"  value={fname} onChange={(e) => setFname(e.target.value) } name="fname"/>
+        </label><br></br>
+
+        <label>
+          Last Name :  
+           <input type="text" name="lname" value={lname} onChange={(e)=>{setLname(e.target.value)}}/>
+        </label><br></br>
+
+        
+
+        
 
         <label>
           Email :  

@@ -1,12 +1,18 @@
 import React, { useState} from "react";
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
-
+import {useSelector} from "react-redux"
 
 
 function NavBar() {
   const [click, setClick] = useState(false);
   const token = localStorage.getItem('authortoken')
+  const result = useSelector(state => state)
+
+
+  console.warn("data In Navbar" ,result)
+  console.warn("author id.in Navabar" , result.authorId)
+ 
 
  
   

@@ -1,14 +1,14 @@
 import React,{useState, useContext} from "react";
 import { NavLink , useHistory} from "react-router-dom";
 import pic from "./image/superman.gif"
-import { GlobalInfo } from "../../App";
+import addData from "../redux/Action"
 
+import {useDispatch} from "react-redux";
 
 
  const Login = () => {
+ const dispatch = useDispatch();
 
-  
-const { loginData} = useContext(GlobalInfo)
 
     const history = useHistory();
 
@@ -16,7 +16,7 @@ const { loginData} = useContext(GlobalInfo)
   const[password,setPassword] = useState('')
 
 
-  const[author, setAuthorId] = useState('')
+  
  
 
 
@@ -39,8 +39,7 @@ const { loginData} = useContext(GlobalInfo)
         localStorage.setItem('authortoken', resp.data.token)
 
         if(resp.status === true){
-          setAuthorId(resp.authorId)
-          console.warn( author)
+         dispatch(addData(resp))
           window.alert( resp.message );
           console.log('Login Sucessfull '+ resp.message );
           history.push("/blog")
@@ -60,7 +59,6 @@ const { loginData} = useContext(GlobalInfo)
   return (
     
     <div className="form">
-      <h1>{author}</h1>
 
        <div className="div1">
        
